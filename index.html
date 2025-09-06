@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>页面正在跳转...</title>
+    <!--
+        作为 JavaScript 禁用时的后备方案。
+        如果 JavaScript 正常工作，此 meta 标签的跳转会被 JavaScript 的跳转覆盖。
+        这里设置了比 JS 倒计时长一点的时间，确保 JS 有足够时间执行。
+    -->
+    <meta http-equiv="refresh" content="8;url=https://www.new-website.com">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f8f8f8;
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            padding: 30px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            max-width: 500px;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        #countdown {
+            font-weight: bold;
+            color: #e74c3c; /* 红色 */
+            font-size: 1.5em;
+            display: inline-block;
+            margin: 0 5px;
+        }
+        .manual-link {
+            display: block;
+            margin-top: 25px;
+        }
+        .manual-link a {
+            color: #3498db; /* 蓝色 */
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: 2px solid #3498db;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        .manual-link a:hover {
+            background-color: #3498db;
+            color: #ffffff;
+            text-decoration: none;
+        }
+        .new-url-display {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #777;
+        }
+        .new-url-display a {
+            color: #555;
+            text-decoration: none;
+            word-break: break-all; /* 防止长链接溢出 */
+        }
+        .new-url-display a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>页面正在跳转...</h1>
+        <p>您好！本页面将在 <span id="countdown">5</span> 秒后自动跳转到新的网址。</p>
+        <div class="manual-link">
+            <a href="https://docs.asoe.cn">如果未自动跳转，请点击这里</a>
+        </div>
+        <p class="new-url-display">新网址：<a href="https://docs.asoe.cn" target="_blank">https://docs.asoe.cn</a></p>
+    </div>
+
+    <script>
+        // 要跳转的目标网址
+        const targetUrl = 'https://docs.asoe.cn';
+        // 初始倒计时秒数
+        let seconds = 5;
+        // 获取显示倒计时的元素
+        const countdownElement = document.getElementById('countdown');
+
+        // 更新倒计时并跳转的函数
+        function updateCountdownAndRedirect() {
+            if (seconds > 0) {
+                countdownElement.textContent = seconds;
+                seconds--;
+                setTimeout(updateCountdownAndRedirect, 1000); // 每秒调用一次
+            } else {
+                // 使用 window.location.replace() 替换当前历史记录，防止用户按返回键回到此页面。
+                window.location.replace(targetUrl);
+            }
+        }
+
+        // 页面加载完成后开始倒计时
+        window.onload = updateCountdownAndRedirect;
+    </script>
+</body>
+</html>
